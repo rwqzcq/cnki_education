@@ -1,5 +1,6 @@
 import os
 import json
+from journal.latest import get_latest_issue
 
 class CnkiConfig:
     '''
@@ -61,7 +62,18 @@ class CnkiConfig:
         '''
         return self.get_all_latest()[journal_id]
         
-        
+    def update_all_latest(self):
+        '''
+        批量更新所有的期刊周期
+        '''
+        journals = self.get_all_journals()
+        latest = {}
+        try:
+            for journal in journals:
+                journal_id = journal['cnki_perio_id']
+                latest[journal_id] = get_latest_issue(journal_id)
+        finally:
+            self.write_all_latest(latest)
     
     
     

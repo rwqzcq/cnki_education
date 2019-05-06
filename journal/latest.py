@@ -17,6 +17,7 @@ def get_latest_issue(journal_id):
     :Returns:
      - Dcit: 成功则返回一个字典
      - Boolean: 失败则返回False
+     
     '''
     latest = {}
     try:
