@@ -1,0 +1,573 @@
+{
+    "list": [
+        {
+            "perio_id": "ycyyzz",
+            "perio_title": "远程教育杂志",
+            "article_num": 1741,
+            "cnki_perio_id": "YCJY"
+        },
+        {
+            "perio_id": "kfjyyj",
+            "perio_title": "开放教育研究",
+            "article_num": 2033,
+            "cnki_perio_id": "JFJJ"
+        },
+        {
+            "perio_id": "xdycjyyj",
+            "perio_title": "现代远程教育研究",
+            "article_num": 1709,
+            "cnki_perio_id": "XDYC"
+        },
+        {
+            "perio_id": "xdjyjs",
+            "perio_title": "现代教育技术",
+            "article_num": 4548,
+            "cnki_perio_id": "XJJS"
+        },
+        {
+            "perio_id": "zgdhjy",
+            "perio_title": "中国电化教育",
+            "article_num": 6473,
+            "cnki_perio_id": "ZDJY"
+        },
+        {
+            "perio_id": "dhjyyj",
+            "perio_title": "电化教育研究",
+            "article_num": 4395,
+            "cnki_perio_id": "DHJY"
+        },
+        {
+            "perio_id": "jyyj",
+            "perio_title": "教育研究",
+            "article_num": 4177,
+            "cnki_perio_id": "JFJJ"
+        },
+        {
+            "perio_id": "zgycjy",
+            "perio_title": "中国远程教育（综合版）",
+            "article_num": 5240,
+            "cnki_perio_id": "DDJY"
+        },
+        {
+            "perio_id": "gdgcjyyj",
+            "perio_title": "高等工程教育研究",
+            "article_num": 2997,
+            "cnki_perio_id": "GDGJ"
+        },
+        {
+            "perio_id": "qhdxjyyj",
+            "perio_title": "清华大学教育研究",
+            "article_num": 2058,
+            "cnki_perio_id": "QHDJ"
+        },
+        {
+            "perio_id": "gdjyyj",
+            "perio_title": "高等教育研究",
+            "article_num": 3571,
+            "cnki_perio_id": "WSLD"
+        },
+        {
+            "perio_id": "zghgxyj",
+            "perio_title": "中国高教研究",
+            "article_num": 7778,
+            "cnki_perio_id": "ZGGJ"
+        },
+        {
+            "perio_id": "zgdxjx",
+            "perio_title": "中国大学教学",
+            "article_num": 5416,
+            "cnki_perio_id": "JXCY"
+        },
+        {
+            "perio_id": "bjdxjypl",
+            "perio_title": "北京大学教育评论",
+            "article_num": 1057,
+            "cnki_perio_id": "BJPL"
+        },
+        {
+            "perio_id": "kcjcjf",
+            "perio_title": "课程·教材·教法",
+            "article_num": 4370,
+            "cnki_perio_id": "KJJF"
+        },
+        {
+            "perio_id": "xlfzyjy",
+            "perio_title": "心理发展与教育",
+            "article_num": 1579,
+            "cnki_perio_id": "XLFZ"
+        },
+        {
+            "perio_id": "fdjylt",
+            "perio_title": "复旦教育论坛",
+            "article_num": 1939,
+            "cnki_perio_id": "GWZX"
+        },
+        {
+            "perio_id": "xdyjljy",
+            "perio_title": "现代远距离教育",
+            "article_num": 1876,
+            "cnki_perio_id": "YUAN"
+        },
+        {
+            "perio_id": "zgjyxk",
+            "perio_title": "中国教育学刊",
+            "article_num": 7113,
+            "cnki_perio_id": "ZJYX"
+        },
+        {
+            "perio_id": "zggdjy",
+            "perio_title": "中国高等教育",
+            "article_num": 9370,
+            "cnki_perio_id": "ZGDJ"
+        },
+        {
+            "perio_id": "gdsfjyyj",
+            "perio_title": "教师教育研究",
+            "article_num": 1735,
+            "cnki_perio_id": "GDSZ"
+        },
+        {
+            "perio_id": "jykx",
+            "perio_title": "教育科学",
+            "article_num": 1993,
+            "cnki_perio_id": "HDXK"
+        },
+        {
+            "perio_id": "tjts",
+            "perio_title": "高教探索",
+            "article_num": 3777,
+            "cnki_perio_id": "GJTA"
+        },
+        {
+            "perio_id": "jsdxxb-gjyjb",
+            "perio_title": "高校教育管理",
+            "article_num": 2047,
+            "cnki_perio_id": "ZJSK"
+        },
+        {
+            "perio_id": "xwyyjsjy",
+            "perio_title": "学位与研究生教育",
+            "article_num": 3705,
+            "cnki_perio_id": "XWYY"
+        },
+        {
+            "perio_id": "jsgj",
+            "perio_title": "江苏高教",
+            "article_num": 5849,
+            "cnki_perio_id": "JSGJ"
+        },
+        {
+            "perio_id": "jyfzyj",
+            "perio_title": "教育发展研究",
+            "article_num": 6908,
+            "cnki_perio_id": "SHJG"
+        },
+        {
+            "perio_id": "zggxshkx",
+            "perio_title": "中国高校社会科学",
+            "article_num": 389,
+            "cnki_perio_id": "GXLL"
+        },
+        {
+            "perio_id": "xddxjy",
+            "perio_title": "现代大学教育",
+            "article_num": 2582,
+            "cnki_perio_id": "YSJG"
+        },
+        {
+            "perio_id": "qqjyzw",
+            "perio_title": "全球教育展望",
+            "article_num": 3588,
+            "cnki_perio_id": "WGJN"
+        },
+        {
+            "perio_id": "xkjy",
+            "perio_title": "教育学报",
+            "article_num": 1996,
+            "cnki_perio_id": "SXYB"
+        },
+        {
+            "perio_id": "xdjygl",
+            "perio_title": "现代教育管理",
+            "article_num": 3385,
+            "cnki_perio_id": "LNGD"
+        },
+        {
+            "perio_id": "hljgjyj",
+            "perio_title": "黑龙江高教研究",
+            "article_num": 11227,
+            "cnki_perio_id": "HLJG"
+        },
+        {
+            "perio_id": "jyyjj",
+            "perio_title": "教育与经济",
+            "article_num": 1208,
+            "cnki_perio_id": "JYJI"
+        },
+        {
+            "perio_id": "sxlljydk",
+            "perio_title": "思想理论教育导刊",
+            "article_num": 6151,
+            "cnki_perio_id": "GXSJ"
+        },
+        {
+            "perio_id": "jyyxdh",
+            "perio_title": "研究生教育研究",
+            "article_num": 1588,
+            "cnki_perio_id": "JIAO"
+        },
+        {
+            "perio_id": "jyts",
+            "perio_title": "教育探索",
+            "article_num": 11766,
+            "cnki_perio_id": "SEEK"
+        },
+        {
+            "perio_id": "zgtsjy",
+            "perio_title": "中国特殊教育",
+            "article_num": 3458,
+            "cnki_perio_id": "ZDTJ"
+        },
+        {
+            "perio_id": "sxlljy-s",
+            "perio_title": "思想理论教育",
+            "article_num": 4290,
+            "cnki_perio_id": "GXSJ"
+        },
+        {
+            "perio_id": "jykxyj",
+            "perio_title": "教育科学研究",
+            "article_num": 3816,
+            "cnki_perio_id": "JYKO"
+        },
+        {
+            "perio_id": "sxzzjyyj",
+            "perio_title": "思想政治教育研究",
+            "article_num": 2768,
+            "cnki_perio_id": "YJSX"
+        },
+        {
+            "perio_id": "hbsfdxxb-jykxb",
+            "perio_title": "河北师范大学学报（教育科学版）",
+            "article_num": 3596,
+            "cnki_perio_id": "HSJY"
+        },
+        {
+            "perio_id": "jxyyj",
+            "perio_title": "教学与研究",
+            "article_num": 3242,
+            "cnki_perio_id": "WJYY"
+        },
+        {
+            "perio_id": "jyyjysy",
+            "perio_title": "教育研究与实验",
+            "article_num": 1574,
+            "cnki_perio_id": "YJSY"
+        },
+        {
+            "perio_id": "bjjyyj",
+            "perio_title": "比较教育研究",
+            "article_num": 3871,
+            "cnki_perio_id": "BJJY"
+        },
+        {
+            "perio_id": "jcjy",
+            "perio_title": "基础教育",
+            "article_num": 1031,
+            "cnki_perio_id": "TSJY"
+        },
+        {
+            "perio_id": "shjyky",
+            "perio_title": "上海教育科研",
+            "article_num": 6655,
+            "cnki_perio_id": "SJYY"
+        },
+        {
+            "perio_id": "jtgjyj",
+            "perio_title": "高教发展与评估",
+            "article_num": 2334,
+            "cnki_perio_id": "JTGY"
+        },
+        {
+            "perio_id": "dxjykx",
+            "perio_title": "大学教育科学",
+            "article_num": 2755,
+            "cnki_perio_id": "FLJY"
+        },
+        {
+            "perio_id": "jxjyky",
+            "perio_title": "教育学术月刊",
+            "article_num": 5654,
+            "cnki_perio_id": "YANG"
+        },
+        {
+            "perio_id": "jypl",
+            "perio_title": "教育评论",
+            "article_num": 6265,
+            "cnki_perio_id": "BJPL"
+        },
+        {
+            "perio_id": "wgjyyj",
+            "perio_title": "外国教育研究",
+            "article_num": 3024,
+            "cnki_perio_id": "WGJY"
+        },
+        {
+            "perio_id": "zggxkjycyh",
+            "perio_title": "中国高校科技",
+            "article_num": 6400,
+            "cnki_perio_id": "ZGKC"
+        },
+        {
+            "perio_id": "mzjyyj",
+            "perio_title": "民族教育研究",
+            "article_num": 2360,
+            "cnki_perio_id": "MZJY"
+        },
+        {
+            "perio_id": "zsdxxblc",
+            "perio_title": "逻辑学研究",
+            "article_num": 4317,
+            "cnki_perio_id": "LJXJ"
+        },
+        {
+            "perio_id": "jndxhwxyxb",
+            "perio_title": "华文教学与研究",
+            "article_num": 907,
+            "cnki_perio_id": "JNHW"
+        },
+        {
+            "perio_id": "sdjyky",
+            "perio_title": "当代教育科学",
+            "article_num": 7642,
+            "cnki_perio_id": "SDJK"
+        },
+        {
+            "perio_id": "wgzxxjy",
+            "perio_title": "外国中小学教育",
+            "article_num": 2599,
+            "cnki_perio_id": "WGZX"
+        },
+        {
+            "perio_id": "ddjyywh",
+            "perio_title": "当代教育与文化",
+            "article_num": 1240,
+            "cnki_perio_id": "GSJG"
+        },
+        {
+            "perio_id": "renmjy",
+            "perio_title": "人民教育",
+            "article_num": 8780,
+            "cnki_perio_id": "RMJY"
+        },
+        {
+            "perio_id": "zxjyx",
+            "perio_title": "政治思想史",
+            "article_num": 2784,
+            "cnki_perio_id": "ZZSX"
+        },
+        {
+            "perio_id": "gxllzx",
+            "perio_title": "高校理论战线（已更名为：中国高校社会科学）",
+            "article_num": 2570,
+            "cnki_perio_id": "GXLL"
+        },
+        {
+            "perio_id": "jyllysj",
+            "perio_title": "教育理论与实践",
+            "article_num": 5429,
+            "cnki_perio_id": "JYLL"
+        }
+    ],
+    "map": [
+        {
+            "ycyyzz": "YCJY"
+        },
+        {
+            "kfjyyj": "JFJJ"
+        },
+        {
+            "xdycjyyj": "XDYC"
+        },
+        {
+            "xdjyjs": "XJJS"
+        },
+        {
+            "zgdhjy": "ZDJY"
+        },
+        {
+            "dhjyyj": "DHJY"
+        },
+        {
+            "jyyj": "JFJJ"
+        },
+        {
+            "zgycjy": "DDJY"
+        },
+        {
+            "gdgcjyyj": "GDGJ"
+        },
+        {
+            "qhdxjyyj": "QHDJ"
+        },
+        {
+            "gdjyyj": "WSLD"
+        },
+        {
+            "zghgxyj": "ZGGJ"
+        },
+        {
+            "zgdxjx": "JXCY"
+        },
+        {
+            "bjdxjypl": "BJPL"
+        },
+        {
+            "kcjcjf": "KJJF"
+        },
+        {
+            "xlfzyjy": "XLFZ"
+        },
+        {
+            "fdjylt": "GWZX"
+        },
+        {
+            "xdyjljy": "YUAN"
+        },
+        {
+            "zgjyxk": "ZJYX"
+        },
+        {
+            "zggdjy": "ZGDJ"
+        },
+        {
+            "gdsfjyyj": "GDSZ"
+        },
+        {
+            "jykx": "HDXK"
+        },
+        {
+            "tjts": "GJTA"
+        },
+        {
+            "jsdxxb-gjyjb": "ZJSK"
+        },
+        {
+            "xwyyjsjy": "XWYY"
+        },
+        {
+            "jsgj": "JSGJ"
+        },
+        {
+            "jyfzyj": "SHJG"
+        },
+        {
+            "zggxshkx": "GXLL"
+        },
+        {
+            "xddxjy": "YSJG"
+        },
+        {
+            "qqjyzw": "WGJN"
+        },
+        {
+            "xkjy": "SXYB"
+        },
+        {
+            "xdjygl": "LNGD"
+        },
+        {
+            "hljgjyj": "HLJG"
+        },
+        {
+            "jyyjj": "JYJI"
+        },
+        {
+            "sxlljydk": "GXSJ"
+        },
+        {
+            "jyyxdh": "JIAO"
+        },
+        {
+            "jyts": "SEEK"
+        },
+        {
+            "zgtsjy": "ZDTJ"
+        },
+        {
+            "sxlljy-s": "GXSJ"
+        },
+        {
+            "jykxyj": "JYKO"
+        },
+        {
+            "sxzzjyyj": "YJSX"
+        },
+        {
+            "hbsfdxxb-jykxb": "HSJY"
+        },
+        {
+            "jxyyj": "WJYY"
+        },
+        {
+            "jyyjysy": "YJSY"
+        },
+        {
+            "bjjyyj": "BJJY"
+        },
+        {
+            "jcjy": "TSJY"
+        },
+        {
+            "shjyky": "SJYY"
+        },
+        {
+            "jtgjyj": "JTGY"
+        },
+        {
+            "dxjykx": "FLJY"
+        },
+        {
+            "jxjyky": "YANG"
+        },
+        {
+            "jypl": "BJPL"
+        },
+        {
+            "wgjyyj": "WGJY"
+        },
+        {
+            "zggxkjycyh": "ZGKC"
+        },
+        {
+            "mzjyyj": "MZJY"
+        },
+        {
+            "zsdxxblc": "LJXJ"
+        },
+        {
+            "jndxhwxyxb": "JNHW"
+        },
+        {
+            "sdjyky": "SDJK"
+        },
+        {
+            "wgzxxjy": "WGZX"
+        },
+        {
+            "ddjyywh": "GSJG"
+        },
+        {
+            "renmjy": "RMJY"
+        },
+        {
+            "zxjyx": "ZZSX"
+        },
+        {
+            "gxllzx": "GXLL"
+        },
+        {
+            "jyllysj": "JYLL"
+        }
+    ]
+}

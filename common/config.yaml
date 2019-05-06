@@ -1,0 +1,11 @@
+db: 
+  host: 127.0.0.1
+  username: root
+  password: 
+  db_name: education_journal
+cnki_base_url: http://kns.cnki.net
+journal_list_base_url: http://navi.cnki.net
+cnki_uid: WEEvREcwSlJHSldRa1Fhb09jT0pjeGxDOXJqZndNc1ljK2s3NkpKRExORT0=$9A4hF_YAuvQ5obgVAqNKPCYcEjKensW4IQMovwHtwkF4VYPoHbKxJw!!
+cnki_sign: gwULg0Wk+rM7UeW49MwlRuqPsGo=
+year: 2019
+issue: 1
