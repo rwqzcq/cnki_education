@@ -52,11 +52,13 @@ class CnkiLog:
         获取csv文件中的内容
         '''
         data = []
-        with open(self.csv_path, 'w+') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                data.append(row)
-        return data
+        try:
+            with open(self.csv_path) as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    data.append(row)
+        finally:
+            return data
         
     def update_csv(self, new_data):
         '''
@@ -65,9 +67,13 @@ class CnkiLog:
         data = self.get_full_csv()
         # 合并
         data.extend(new_data) # 不用返回
+        xuhao = 1
         headers = ["xuhao", "id", 'title', 'author', 'abstract', 'keywords', 'perio', 'juanhao', 'issn', 'read_url', 'pdf_url', 'content', 'original_url']
-        with open(self.csv_path, 'w+', newline='', encoding='UTF-8') as f:
+        with open(self.csv_path, 'w', newline='', encoding='UTF-8') as f:
             writer = csv.DictWriter(f, headers)
             writer.writeheader()
             for row in data:
+                # 重新整理index
+                row['xuhao'] = xuhao
                 writer.writerow(row)
+                xuhao += 1

@@ -63,7 +63,9 @@ def cnki_main_with_selenium():
 
 if __name__ == "__main__":
     cnki_main_with_selenium()
-    
+    # cnki_log = CnkiLog()
+    # full = cnki_log.get_full_csv()
+    # print(full)
     # from common.cnki_config import CnkiConfig
     # from journal.latest import get_latest_issue, check_if_updated
     # '''
