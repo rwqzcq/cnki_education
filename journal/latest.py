@@ -17,7 +17,7 @@ def get_latest_issue(journal_id):
     :Returns:
      - Dcit: 成功则返回一个字典
      - Boolean: 失败则返回False
-     
+
     '''
     latest = {}
     try:
@@ -66,4 +66,19 @@ def check_if_updated(journal_id, old):
 
 
 
-
+    # '''
+    # 检查是否已经更新
+    # '''
+    # config = CnkiConfig()
+    # journal_id = 'XJJS'
+    # old = config.get_journal_latest(journal_id)
+    # r = check_if_updated(journal_id, old)
+    
+    # journals = config.get_all_journals()
+    # latest = {}
+    # try:
+    #     for journal in journals:
+    #         journal_id = journal['cnki_perio_id']
+    #         latest[journal_id] = get_latest_issue(journal_id)
+    # finally:
+    #     config.write_all_latest(latest)

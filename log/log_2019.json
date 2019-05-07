@@ -1,0 +1,38 @@
+{
+    "YCJY201901002": {
+        "filename": "YCJY201901002",
+        "online": 1,
+        "not_online": 0,
+        "error": 0
+    },
+    "YCJY201901003": {
+        "filename": "YCJY201901003",
+        "online": 1,
+        "not_online": 0,
+        "error": 0
+    },
+    "YCJY201901004": {
+        "filename": "YCJY201901004",
+        "online": 1,
+        "not_online": 0,
+        "error": 0
+    },
+    "YCJY201901005": {
+        "filename": "YCJY201901005",
+        "online": 1,
+        "not_online": 0,
+        "error": 0
+    },
+    "YCJY201901006": {
+        "filename": "YCJY201901006",
+        "online": 1,
+        "not_online": 0,
+        "error": 0
+    },
+    "YCJY201901007": {
+        "filename": "YCJY201901007",
+        "online": 0,
+        "not_online": 0,
+        "error": 1
+    }
+}

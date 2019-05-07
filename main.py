@@ -58,25 +58,6 @@ def cnki_main_with_selenium(dataset_path, log_name, full_name):
         cnki_log.update_csv(full)
 
 if __name__ == "__main__":
-    cnki_main_with_selenium(dataset_path = './init/dataset_2018.csv', log_name = 'log.json', full_name = 'full.csv')
-    # cnki_log = CnkiLog()
-    # full = cnki_log.get_full_csv()
-    # print(full)
-    # from common.cnki_config import CnkiConfig
-    # from journal.latest import get_latest_issue, check_if_updated
-    # '''
-    # 检查是否已经更新
-    # '''
-    # config = CnkiConfig()
-    # journal_id = 'XJJS'
-    # old = config.get_journal_latest(journal_id)
-    # r = check_if_updated(journal_id, old)
-    
-    # journals = config.get_all_journals()
-    # latest = {}
-    # try:
-    #     for journal in journals:
-    #         journal_id = journal['cnki_perio_id']
-    #         latest[journal_id] = get_latest_issue(journal_id)
-    # finally:
-    #     config.write_all_latest(latest)
+    # cnki_main_with_selenium(dataset_path = './init/dataset_2018.csv', log_name = 'log_2018.json', full_name = 'full_2018.csv')
+    # 爬取2019年数据
+    cnki_main_with_selenium(dataset_path = './init/dataset_2019.csv', log_name = 'log_2019.json', full_name = 'full_2019.csv')
