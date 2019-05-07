@@ -5,11 +5,16 @@ import csv
 from paper.paper_parse import get_paper_detail_without_content
 from log.log import CnkiLog
 
-def cnki_main_with_selenium():
+def cnki_main_with_selenium(dataset_path, log_name, full_name):
     '''
-    根据下载的列表来获取论文正文
+    根据下载的论文列表来获取论文的详细信息
+    
+    :Args:
+     - dataset_path: csv文件路径
+     - log_name: 日志文件名
+     - full_name: 最终存储的csv文件名
     '''
-    cnki_log = CnkiLog()
+    cnki_log = CnkiLog(log_name, full_name)
     current_log = cnki_log.get_log()
     full = []
     log = {}
@@ -17,7 +22,7 @@ def cnki_main_with_selenium():
     # 读取csv
     try:
         # 载入日志文件
-        with open('./init/dataset_2018.csv', encoding='UTF-8') as f:
+        with open(dataset_path, encoding='UTF-8') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 filename = row['paper_id']
@@ -49,20 +54,11 @@ def cnki_main_with_selenium():
     finally:
         # 写入日志文件
         cnki_log.write_log(log)
-        # '''
-        # filename online not_online error
-        # '''
-        # headers = ["filename", "online", "not_online", "error"]
-        # with open('./log/log.csv', 'w', newline='', encoding='UTF-8') as f:
-        #     writer = csv.DictWriter(f, headers)
-        #     writer.writeheader()
-        #     for row in log:
-        #         writer.writerow(row)
         # 写入主文件
         cnki_log.update_csv(full)
 
 if __name__ == "__main__":
-    cnki_main_with_selenium()
+    cnki_main_with_selenium(dataset_path = './init/dataset_2018.csv', log_name = 'log.json', full_name = 'full.csv')
     # cnki_log = CnkiLog()
     # full = cnki_log.get_full_csv()
     # print(full)

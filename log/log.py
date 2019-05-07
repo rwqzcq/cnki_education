@@ -6,10 +6,21 @@ import time
 
 class CnkiLog:
 
-    def __init__(self):
-        self.log_path = os.path.join(os.path.dirname(__file__), 'log.json')
+    def __init__(self, log_name, full_name):
+        '''
+        :Args:
+         - log_name: 日志文件名字
+         - full_name: csv文件名字
+        '''
+        if log_name is not None:
+            self.log_path = os.path.join(os.path.dirname(__file__), log_name)
+        else:
+            self.log_path = os.path.join(os.path.dirname(__file__), 'log.json')
+        if full_name is not None:
+            self.csv_path = os.path.join(os.path.dirname(__file__), full_name)
+        else:
+            self.csv_path = os.path.join(os.path.dirname(__file__), 'full.csv')
         self.is_exist = os.path.exists(self.log_path)
-        self.csv_path = os.path.join(os.path.dirname(__file__), 'full.csv')
 
     def get_log(self):
         '''
@@ -21,7 +32,7 @@ class CnkiLog:
         if self.is_exist == False:
             return False
         else:
-            with open(self.log_path) as f:
+            with open(self.log_path, encoding = "UTF-8") as f:
                 data = f.read()
                 return json.loads(data)
 
@@ -53,7 +64,7 @@ class CnkiLog:
         '''
         data = []
         try:
-            with open(self.csv_path) as f:
+            with open(self.csv_path, encoding = "UTF-8") as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     data.append(row)
