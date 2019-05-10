@@ -293,5 +293,20 @@
         "journal_id": "JYLL",
         "year": "2019",
         "issue": "No.09"
+    },
+    "JYYJ": {
+        "journal_id": "JYYJ",
+        "year": "2019",
+        "issue": "No.03"
+    },
+    "SLLJ": {
+        "journal_id": "SLLJ",
+        "year": "2019",
+        "issue": "No.05"
+    },
+    "JYPL": {
+        "journal_id": "JYPL",
+        "year": "2019",
+        "issue": "No.03"
     }
 }

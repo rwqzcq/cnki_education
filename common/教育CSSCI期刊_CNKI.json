@@ -40,7 +40,7 @@
             "perio_id": "jyyj",
             "perio_title": "教育研究",
             "article_num": 4177,
-            "cnki_perio_id": "JFJJ"
+            "cnki_perio_id": "JYYJ"
         },
         {
             "perio_id": "zgycjy",
@@ -232,7 +232,7 @@
             "perio_id": "sxlljy-s",
             "perio_title": "思想理论教育",
             "article_num": 4290,
-            "cnki_perio_id": "GXSJ"
+            "cnki_perio_id": "SLLJ"
         },
         {
             "perio_id": "jykxyj",
@@ -304,7 +304,7 @@
             "perio_id": "jypl",
             "perio_title": "教育评论",
             "article_num": 6265,
-            "cnki_perio_id": "BJPL"
+            "cnki_perio_id": "JYPL"
         },
         {
             "perio_id": "wgjyyj",
@@ -367,12 +367,6 @@
             "cnki_perio_id": "ZZSX"
         },
         {
-            "perio_id": "gxllzx",
-            "perio_title": "高校理论战线（已更名为：中国高校社会科学）",
-            "article_num": 2570,
-            "cnki_perio_id": "GXLL"
-        },
-        {
             "perio_id": "jyllysj",
             "perio_title": "教育理论与实践",
             "article_num": 5429,
@@ -399,7 +393,7 @@
             "dhjyyj": "DHJY"
         },
         {
-            "jyyj": "JFJJ"
+            "jyyj": "JFYJ"
         },
         {
             "zgycjy": "DDJY"
@@ -495,7 +489,7 @@
             "zgtsjy": "ZDTJ"
         },
         {
-            "sxlljy-s": "GXSJ"
+            "sxlljy-s": "SLLJ"
         },
         {
             "jykxyj": "JYKO"
@@ -531,7 +525,7 @@
             "jxjyky": "YANG"
         },
         {
-            "jypl": "BJPL"
+            "jypl": "JYPL"
         },
         {
             "wgjyyj": "WGJY"
@@ -562,9 +556,6 @@
         },
         {
             "zxjyx": "ZZSX"
-        },
-        {
-            "gxllzx": "GXLL"
         },
         {
             "jyllysj": "JYLL"

@@ -1,11 +1,6 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 import time
-# import sys
-# sys.path.append("..")
-# from common.cnki_config import CnkiConfig
-
-# import config.cnki_config
 
 def get_latest_issue(journal_id):
     '''
@@ -26,7 +21,6 @@ def get_latest_issue(journal_id):
         journal = '''http://navi.cnki.net/KNavi/JournalDetail?pcode=CJFD&pykm={0}'''.format(journal_id)
         browser.get(journal)
         browser.implicitly_wait(10)
-        time.sleep(3)
         latest['journal_id'] = journal_id
         try: # 找到年
             year = browser.find_element_by_css_selector('div.yearissuepage dl dt em')
@@ -82,3 +76,13 @@ def check_if_updated(journal_id, old):
     #         latest[journal_id] = get_latest_issue(journal_id)
     # finally:
     #     config.write_all_latest(latest)
+# '''
+# JFJJ => JYYJ
+# GXSJ => SLLJ
+# BJPL => JYPL
+# '''
+
+# if __name__ == "__main__":
+#     journal_id = 'JYPL'
+#     latest = get_latest_issue(journal_id)
+#     print(latest)
