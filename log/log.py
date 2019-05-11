@@ -13,11 +13,11 @@ class CnkiLog:
          - full_name: csv文件名字
         '''
         if log_name is not None:
-            self.log_path = os.path.join(os.path.dirname(__file__), log_name)
+            self.log_path = os.path.join(os.path.dirname(__file__), log_name + '.json')
         else:
             self.log_path = os.path.join(os.path.dirname(__file__), 'log.json')
         if full_name is not None:
-            self.csv_path = os.path.join(os.path.dirname(__file__), full_name)
+            self.csv_path = os.path.join(os.path.dirname(__file__), full_name + '.csv')
         else:
             self.csv_path = os.path.join(os.path.dirname(__file__), 'full.csv')
         self.is_exist = os.path.exists(self.log_path)

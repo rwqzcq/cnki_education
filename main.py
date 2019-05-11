@@ -4,6 +4,8 @@ import sys
 import csv
 from paper.paper_parse import get_paper_detail_without_content
 from log.log import CnkiLog
+from paper.subject_filter import SubjectFilter
+from common.journal_config import get_journal_config
 
 def cnki_main_with_selenium(dataset_path, log_name, full_name):
     '''
@@ -48,7 +50,7 @@ def cnki_main_with_selenium(dataset_path, log_name, full_name):
                         row_log['not_online'] = 1
                 log[filename] = row_log
                 if current_log != False: # 合并日志
-                    log = dict( current_log, **log)          
+                    log = dict(current_log, **log)          
     except: 
         traceback.print_exc()
     finally:
@@ -57,7 +59,91 @@ def cnki_main_with_selenium(dataset_path, log_name, full_name):
         # 写入主文件
         cnki_log.update_csv(full)
 
+def cnki_get_paper_detail_throgh_list(data_list, file_name):
+    '''
+    通过filename的id列表来采集论文的相关核心信息
+
+    :Args:
+     - data_list: 存放filename的列表
+     - file_name: 存放的csv文件名和文件日志名
+    '''
+    cnki_log = CnkiLog(file_name, file_name)
+    current_log = cnki_log.get_log()
+    full = []
+    log = {}
+    count = 1
+    try:
+        for filename in data_list:
+            if current_log != False:
+                if filename in current_log:
+                    if current_log[filename]['error'] == 0:
+                        print(filename + "--已经爬取")
+                        continue
+            # time.sleep(3)
+            # 日志
+            row_log = {"filename" : filename, "online" : 0, "not_online" : 0, "error" : 0}
+            paper = get_paper_detail_without_content(filename)
+            if paper == False:
+                row_log['error'] = 1
+            else:
+                paper['xuhao'] = count
+                full.append(paper) 
+                count = count + 1
+                if paper['read_url'] != False: 
+                    row_log['online'] = 1
+                else: # 写入没有在线阅读文件 
+                    row_log['not_online'] = 1
+            log[filename] = row_log
+            if current_log != False: # 合并日志
+                log = dict(current_log, **log)    
+    except:
+        traceback.print_exc()
+    finally:
+        # 写入日志文件
+        cnki_log.write_log(log)
+        # 写入主文件
+        cnki_log.update_csv(full)
+
+
+
+
+
+def cnki_subject_with_selenium(subject_name):
+    '''
+    爬取某一主题下的C刊教育类论文
+
+    :Args:
+     - subject_name: 主题名称 目前是全名称 只能用一个词来表示这个主题 后期考虑扩展到多个关键词
+    '''
+    start_year = get_journal_config().get('start_year') # 获取起始年
+    start_year = str(start_year)
+    subject = SubjectFilter(subject_name, start_year = start_year, end_year = '2019') # 校园突发事件
+    data = subject.get()
+    # 将这个data先存入列表？
+    if data != False:
+        if len(data) > 0: # 有数据
+            cnki_get_paper_detail_throgh_list(data, subject_name)
+
+
+
 if __name__ == "__main__":
     # cnki_main_with_selenium(dataset_path = './init/dataset_2018.csv', log_name = 'log_2018.json', full_name = 'full_2018.csv')
     # 爬取2019年数据
-    cnki_main_with_selenium(dataset_path = './init/dataset_2019.csv', log_name = 'log_2019.json', full_name = 'full_2019.csv')
+    # cnki_main_with_selenium(dataset_path = './init/dataset_2019.csv', log_name = 'log_2019', full_name = 'full_2019')
+    # subject = SubjectFilter('高考改革XXX', start_year = '2015', end_year = '2019') # 校园突发事件
+    # data = subject.get()
+    # print(data)
+    subject_list = [
+        '校园突发事件',
+        '高考改革'
+        '校外培训机构治理',
+        '高校社团管理',
+        '中小学教师减负',
+        '教师队伍建设',
+        '高校思政课',
+        '高校院系党建',
+        '民办学校',
+        '学生会治理',
+    ]
+    for subject in subject_list:
+        cnki_subject_with_selenium(subject)

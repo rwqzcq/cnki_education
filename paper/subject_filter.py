@@ -4,7 +4,9 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from common.parse import parse_filename
 import time
+import traceback
 
 class SubjectFilter:
     '''
@@ -39,17 +41,12 @@ class SubjectFilter:
         browser.implicitly_wait(10)
         browser.get(url)
         try:
-            search_id = '#1_2 > a' # 专业检索标识 #\31 _2 > a 
-            # search = browser.find_element_by_css_selector(search_id)
             search = browser.find_element_by_xpath('//*[@id="1_2"]/a')
             browser.execute_script("arguments[0].click();", search) # 点击切换到专业检索
             try:
-                # time.sleep(5)
                 input_id = 'expertvalue'
-                # input = browser.find_element_by_id(input_id) # 找到检索式的框
                 input = WebDriverWait(browser, 10).until(           
                                     EC.presence_of_element_located((By.ID, input_id)))
-
                 input.send_keys(self.retreval_str) # 输入检索式
                 try:
                     select_id = 'year_from'
@@ -68,19 +65,17 @@ class SubjectFilter:
                                 content_frame_id = 'iframeResult'
                                 content_iframe = WebDriverWait(browser, 10).until(           
                                     EC.presence_of_element_located((By.ID, "iframeResult")))
-                                browser.switch_to.frame(content_frame_id)
+                                browser.switch_to.frame(content_frame_id) # 切换到iframe
                                 try:
-                                    ## 开始递归操作
-                                    journal_lists = browser.find_elements_by_css_selector("a.fz14")
-                                    if journal_lists: # 找到论文列表
-                                        for journal in journal_lists:
-                                            print(journal.get_attribute("href"))
-                                    
+                                    data = []
+                                    # 为了减少等待时间 就在这个地方先进行一个爬取 然后再去递归操作
+                                    data = self.fanye(browser, data)
+                                    return data
                                 except:
-                                    print("没有论文列表")
+                                    print("切换iframe出问题")
+                                    return False
                             except:
-                                pass
-                            
+                                return False
                             # try:
                             #     time.sleep(3)
                             #     content_frame_id = 'iframeResult'
@@ -96,23 +91,56 @@ class SubjectFilter:
                             #     pass
                         except:
                             print("找不到检索项")
-                            pass
+                            return False
                     except:
                         print("找不到cssci选项")
-                        pass
+                        return False
                 except:
                     print("找不到起始年")
-                    pass
+                    return False
             except:
                 print("找不到输入框")
-                pass
+                return False
         except:
             print("找不到检索标识")
-            pass
+            return False
         finally:
             browser.close()
 
+    def fanye(self, browser, data):
+        '''
+        执行翻页操作
+        :Args:
+         - browser 浏览器对象
+         - data 要返回的数据
+        '''
 
+        try:
+            # 显示等待元素加载完成
+            journal_lists = WebDriverWait(browser, 10).until(           
+                                    EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a.fz14")))
+            # journal_lists = browser.find_elements_by_css_selector("a.fz14")                     
+            if journal_lists: # 有期刊
+                for journal in journal_lists:
+                    href = journal.get_attribute("href")
+                    filename = parse_filename(href)
+                    data.append(filename)
+                try:
+                    page_next = browser.find_element_by_css_selector(".TitleLeftCell a:last-child ") # 找到翻页的标志
+                    if page_next.text == '下一页':
+                        browser.execute_script("arguments[0].click();", page_next)
+                        return self.fanye(browser, data)
+                    else:
+                        return data
+                except: # 没有下一页
+                    return data
+            else:
+                return data              
+        except: # 没有期刊
+            print("加载文献列表出问题")
+            traceback.print_exc()
+            return data
+        
     def get_paper_list(self):
         '''爬取
         :param log 传入一个Log对象
@@ -123,6 +151,3 @@ class SubjectFilter:
         # 更新日志
         pass
     
-
-subject = SubjectFilter('校园突发事件XXX', start_year = '2015', end_year = '2019')
-subject.get()
