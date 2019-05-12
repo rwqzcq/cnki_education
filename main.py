@@ -133,9 +133,10 @@ if __name__ == "__main__":
     # subject = SubjectFilter('高考改革XXX', start_year = '2015', end_year = '2019') # 校园突发事件
     # data = subject.get()
     # print(data)
+    # return
     subject_list = [
         '校园突发事件',
-        '高考改革'
+        '高考改革',
         '校外培训机构治理',
         '高校社团管理',
         '中小学教师减负',

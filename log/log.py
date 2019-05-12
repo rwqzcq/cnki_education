@@ -5,7 +5,9 @@ import time
 
 
 class CnkiLog:
-
+    '''
+    负责存储日志文件和数据文件
+    '''
     def __init__(self, log_name, full_name):
         '''
         :Args:
@@ -17,9 +19,11 @@ class CnkiLog:
         else:
             self.log_path = os.path.join(os.path.dirname(__file__), 'log.json')
         if full_name is not None:
-            self.csv_path = os.path.join(os.path.dirname(__file__), full_name + '.csv')
+            self.csv_path = os.path.join(os.path.abspath('./dataset'), full_name + '.csv')
+            # self.csv_path = os.path.join(os.path.dirname(__file__), full_name + '.csv')
         else:
-            self.csv_path = os.path.join(os.path.dirname(__file__), 'full.csv')
+            self.csv_path = os.path.join(os.path.abspath('./dataset'), 'full.csv')
+            # self.csv_path = os.path.join(os.path.dirname(__file__), 'full.csv')
         self.is_exist = os.path.exists(self.log_path)
 
     def get_log(self):

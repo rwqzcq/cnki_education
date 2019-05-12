@@ -18,7 +18,7 @@ python main.py
 4. init
     - 程序启动文件，存放期刊论文列表
 5. log
-    - 日志文件
+    - 日志文件，存放爬取日志
 6. paper
     - 与论文有关的程序
 7. journal
