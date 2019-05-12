@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from common.parse import parse_filename
+from common.journal_config import get_journal_config
 import time
 import traceback
 
@@ -12,7 +13,7 @@ class SubjectFilter:
     '''
     爬取某一主题下的论文
     '''
-    def __init__(self, subject, start_year, end_year):
+    def __init__(self, subject, start_year, end_year, retreval_str):
         '''
         构造方法
         
@@ -20,15 +21,21 @@ class SubjectFilter:
          - subject: 主题词
          - start_year: 开始年份
          - end_year: 结束年份
+         - retreval_str: 检索式
         '''
         self.subject = subject
         self.start_year = start_year
         self.end_year = end_year
-        self.build_retreval()
+        if retreval_str == None: # 自己有检索式就用自己的检索式
+            self.build_retreval()
+        else:
+            self.retreval_str = retreval_str
+        
     
     def build_retreval(self):
         '''
         创建检索式
+        从配置项中读取关键词构成检索式
         '''
         self.retreval_str = ''' SU = '{0}' '''.format(self.subject)
     
@@ -151,3 +158,66 @@ class SubjectFilter:
         # 更新日志
         pass
     
+class SubjectConfig:
+    '''
+    主题过滤配置类
+    主要从该类中获取主题以及构造检索式
+    '''
+
+    def __init__(self):
+        '''
+        初始化获得主题列表
+        '''
+        self.config = get_journal_config().get('subject_list')
+    
+    def get_subjects(self):
+        '''
+        获取所有主题以及格式化好的关键词
+        '''
+        subjects = []
+        for key, value in self.config.items():
+            subject = {}
+            subject['name'] = value['name']
+            subject['retreval_str'] = self.get_one_retreval(key)
+            subjects.append(subject)
+        return subjects
+
+
+    
+    def get_one(self, key):
+        '''
+        获取一个主题的所有信息
+        '''
+        try:
+            return self.config[key]
+        except:
+            return False
+    
+    def get_one_retreval(self, key):
+        '''
+        获取某一个主题的检索表达式
+        '''
+        value = self.get_one(key)
+        if value != False:
+            keywords = value['keywords']
+            if len(keywords) == 1:
+                retreval_str = ''' SU = '{0}' '''.format(keywords[0])
+            else: # 构造检索表达式
+                retreval_str = "' + '".join(keywords)
+                retreval_str = "'" + retreval_str + "'"
+                retreval_str = "SU = " + retreval_str
+            return retreval_str
+        return False
+
+    def get_one_subject_name(self, key):
+        '''
+        获取主题名称
+        '''
+        value = self.get_one(key)
+        return value['name']
+
+                
+
+
+
+        

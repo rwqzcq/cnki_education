@@ -10,3 +10,21 @@ cnki_sign: gwULg0Wk+rM7UeW49MwlRuqPsGo=
 year: 2019
 issue: 1
 start_year: 2015
+subject_map:
+  xytfsj: 校园突发事件
+  gkgg: 高考改革
+  xwpxjgzl: 校外培训机构治理
+  gxstgl: 高校社团管理
+  zxujsjf: 中小学教师减负
+  jsdwjs: 教师队伍建设
+  gxszk: 高校思政课
+  gxyidj: 高校院系党建
+  mbxx: 民办学校
+  xshzl: 学生会治理
+subject_list:
+  xytfsj:
+    name: 校园突发事件
+    keywords:
+      - 校园突发事件
+
+  

@@ -4,7 +4,7 @@ import sys
 import csv
 from paper.paper_parse import get_paper_detail_without_content
 from log.log import CnkiLog
-from paper.subject_filter import SubjectFilter
+from paper.subject_filter import SubjectFilter, SubjectConfig
 from common.journal_config import get_journal_config
 
 def cnki_main_with_selenium(dataset_path, log_name, full_name):
@@ -108,16 +108,21 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
 
 
 
-def cnki_subject_with_selenium(subject_name):
+def cnki_subject_with_selenium(subject):
     '''
     爬取某一主题下的C刊教育类论文
 
     :Args:
-     - subject_name: 主题名称 目前是全名称 只能用一个词来表示这个主题 后期考虑扩展到多个关键词
+     - subject: 主题对象 包括主题名称以及该主题所包括的关键词
+
     '''
+    subject_name = subject['name']
+    retreval_str = None
+    if subject['retreval_str'] != False:
+        retreval_str = subject['retreval_str']
     start_year = get_journal_config().get('start_year') # 获取起始年
     start_year = str(start_year)
-    subject = SubjectFilter(subject_name, start_year = start_year, end_year = '2019') # 校园突发事件
+    subject = SubjectFilter(subject_name, start_year = start_year, end_year = '2019', retreval_str = retreval_str) # 校园突发事件
     data = subject.get()
     # 将这个data先存入列表？
     if data != False:
@@ -134,17 +139,20 @@ if __name__ == "__main__":
     # data = subject.get()
     # print(data)
     # return
-    subject_list = [
-        '校园突发事件',
-        '高考改革',
-        '校外培训机构治理',
-        '高校社团管理',
-        '中小学教师减负',
-        '教师队伍建设',
-        '高校思政课',
-        '高校院系党建',
-        '民办学校',
-        '学生会治理',
-    ]
+    # subject_list = [
+    #     '校园突发事件',
+    #     '高考改革',
+    #     '校外培训机构治理',
+    #     '高校社团管理',
+    #     '中小学教师减负',
+    #     '教师队伍建设',
+    #     '高校思政课',
+    #     '高校院系党建',
+    #     '民办学校',
+    #     '学生会治理',
+    # ]
+    subject_config = SubjectConfig()
+    subject_list = subject_config.get_subjects()
     for subject in subject_list:
         cnki_subject_with_selenium(subject)
+    
