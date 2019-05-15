@@ -39,3 +39,16 @@ python main.py
 ### 使用的库
 - yaml
 - selenium
+
+### 示例
+关键词有 A;B;C
+摘要有 XXX
+content字段的内容是 
+```
+A;B;C XXX 
+```
+还是这种
+```
+关键词 A;B;C 摘要 XXX
+```
+

@@ -10,7 +10,8 @@ cnki_uid: WEEvREcwSlJHSldRa1Fhb09jT0pjeGxDOXJqZndNc1ljK2s3NkpKRExORT0=$9A4hF_YAu
 cnki_sign: gwULg0Wk+rM7UeW49MwlRuqPsGo=
 year: 2019
 issue: 1
-start_year: 2010
+start_year: 2018
+subject_md5: d1006c45c82548baac58bef6e832f322
 subject_map:
   xytfsj: 校园突发事件
   gkgg: 高考改革
@@ -26,6 +27,71 @@ subject_list:
   xytfsj:
     name: 校园突发事件
     keywords:
-      - 校园突发事件
+      - 高校突发
+      - 校园暴力
+      - 校园突发
+  gkgg:
+    name: 高考改革
+    keywords:
+      - 高考改革
+      - 新高考
+  xwpxjgzl:
+    name: 校外培训机构治理
+    keywords:
+      - 校外培训
+      - 编程热
+      - 素质教育
+      - 线上培训
+      - 培训机构
+      - 补课
+  gxstgl:
+    name: 高校社团管理
+    keywords:
+      - 高校社团
+      - 学生社团
+      - 社团管理
+      - 社团治理
+  zxujsjf:
+    name: 中小学教师减负
+    keywords:
+      - 教育减负
+      - 教师减负
+      - 学生减负
+      - 学校减负
+  jsdwjs:
+    name: 教师队伍建设
+    keywords:
+      - 教师队伍
+      - 师德
+      - 教师待遇
+      - 教师形象
+      - 教师教育
+      - 新时代教师
+  gxszk:
+    name: 高校思政课
+    keywords:
+      - 高校思政课
+      - 思政课建设
+      - 新思政课
+      - 思政课大练兵
+  gxyidj:
+    name: 高校院系党建
+    keywords:
+      - 高校党建
+      - 院系党建
+  mbxx:
+    name: 民办学校 
+    keywords:
+      - 民办学校
+      - 公办学校
+      - 生源挤压
+  xshzl:
+    name: 学生会治理
+    keywords:
+      - 学生会治理
+      - 学生官僚主义
+      - 学生贵族
+      - 校研会
 
+  
   

@@ -86,6 +86,7 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
                 row_log['error'] = 1
             else:
                 paper['xuhao'] = count
+                paper['subject'] = file_name # 增加主题
                 full.append(paper) 
                 count = count + 1
                 if paper['read_url'] != False: 

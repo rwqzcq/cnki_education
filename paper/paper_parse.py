@@ -134,7 +134,8 @@ def get_pure_detail_from_detail_page(soup, filename):
 
 # 使用selenium爬取期刊不包括正文的部分
 def get_paper_detail_without_content(filename):
-    '''使用selenium爬取期刊不包括正文的部分
+    '''
+    使用selenium爬取期刊不包括正文的部分
 
     :param filename: cnki中某一篇论文的唯一标识符
     '''
@@ -157,3 +158,4 @@ def get_paper_detail_without_content(filename):
         return False
     finally:
         browser.quit() # 这里不用返回信息
+

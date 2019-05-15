@@ -85,23 +85,28 @@ class JournalDb:
         sql = '''
             insert into `{0}`
             (
-                `ID`, `TITLE`, `SHORT_DESC`, 
+                `ID`, `TITLE`,  
                 `CONTENT`, `SOURCE`, `YEAR_AND_VOLUME_OR_PERIOD`, 
-                `ISSN`, `SEARCH_WORDS_NAME`, `ORIGINAL_URL`
+                `ISSN`, `SEARCH_WORDS_NAME`, `ORIGINAL_URL`,
+                `SUBJECT_TYPE`
             )
             values
             (
+                %s, %s, 
                 %s, %s, %s,
                 %s, %s, %s,
-                %s, %s, %s
+                %s
             )
         '''.format(self.original_link)
         bind_params = []
+        subject_md5 = get_journal_config().get('subject_md5')
         for paper in paper_list: # 遍历每一篇paper
+            content = self.build_content(paper['keywords'], paper['abstract'])
             bind_param = (
-                paper['id'], paper['title'], paper['abstract'],
-                paper['content'], paper['perio'], paper['juanhao'],
-                paper['issn'], paper['keywords'], paper['original_url']
+                paper['id'], paper['title'], 
+                content, paper['perio'], paper['juanhao'],
+                paper['issn'], paper['subject'], paper['original_url'],
+                subject_md5
             )
             bind_params.append(bind_param)
         try:
@@ -114,6 +119,13 @@ class JournalDb:
             return False
         return True
 
+    def build_content(self, keywords, abstract):
+        '''
+        构造content字段
+        '''
+        keywords = keywords.replace(' ', '').replace("\n", '')
+        content = '关键词 ' + keywords + '摘要 ' + abstract # "\n" + 
+        return content
     def __del__(self):
         '''
         析构函数，对象销毁的时候就断开数据库的链接
