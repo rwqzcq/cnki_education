@@ -79,7 +79,6 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
                     if current_log[filename]['error'] == 0:
                         print(filename + "--已经爬取")
                         continue
-            # time.sleep(3)
             # 日志
             row_log = {"filename" : filename, "online" : 0, "not_online" : 0, "error" : 0}
             paper = get_paper_detail_without_content(filename)
@@ -100,11 +99,12 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
         traceback.print_exc()
     finally:
         # 写入日志文件
-        cnki_log.write_log(log)
-        # 写入主文件
-        cnki_log.update_csv(full)
-
-
+        if log != {}:
+            cnki_log.write_log(log)
+        # 写入数据库与所对应的csv文件
+        if len(full) > 0:
+            cnki_log.use_db().insert_into_originallink_multi(full)
+            cnki_log.update_csv(full)
 
 
 
@@ -132,25 +132,7 @@ def cnki_subject_with_selenium(subject):
 
 
 if __name__ == "__main__":
-    # cnki_main_with_selenium(dataset_path = './init/dataset_2018.csv', log_name = 'log_2018.json', full_name = 'full_2018.csv')
-    # 爬取2019年数据
-    # cnki_main_with_selenium(dataset_path = './init/dataset_2019.csv', log_name = 'log_2019', full_name = 'full_2019')
-    # subject = SubjectFilter('高考改革XXX', start_year = '2015', end_year = '2019') # 校园突发事件
-    # data = subject.get()
-    # print(data)
-    # return
-    # subject_list = [
-    #     '校园突发事件',
-    #     '高考改革',
-    #     '校外培训机构治理',
-    #     '高校社团管理',
-    #     '中小学教师减负',
-    #     '教师队伍建设',
-    #     '高校思政课',
-    #     '高校院系党建',
-    #     '民办学校',
-    #     '学生会治理',
-    # ]
+    # 开启个定时任务
     subject_config = SubjectConfig()
     subject_list = subject_config.get_subjects()
     for subject in subject_list:

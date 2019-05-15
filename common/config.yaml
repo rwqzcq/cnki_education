@@ -3,13 +3,14 @@ db:
   username: root
   password: 
   db_name: education_journal
+  original_link: originallink
 cnki_base_url: http://kns.cnki.net
 journal_list_base_url: http://navi.cnki.net
 cnki_uid: WEEvREcwSlJHSldRa1Fhb09jT0pjeGxDOXJqZndNc1ljK2s3NkpKRExORT0=$9A4hF_YAuvQ5obgVAqNKPCYcEjKensW4IQMovwHtwkF4VYPoHbKxJw!!
 cnki_sign: gwULg0Wk+rM7UeW49MwlRuqPsGo=
 year: 2019
 issue: 1
-start_year: 2015
+start_year: 2010
 subject_map:
   xytfsj: 校园突发事件
   gkgg: 高考改革

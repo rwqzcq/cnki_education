@@ -2,7 +2,7 @@ import os
 import csv
 import json
 import time
-
+from db.journal_db import JournalDb
 
 class CnkiLog:
     '''
@@ -25,6 +25,7 @@ class CnkiLog:
             self.csv_path = os.path.join(os.path.abspath('./dataset'), 'full.csv')
             # self.csv_path = os.path.join(os.path.dirname(__file__), 'full.csv')
         self.is_exist = os.path.exists(self.log_path)
+        
 
     def get_log(self):
         '''
@@ -92,3 +93,16 @@ class CnkiLog:
                 row['xuhao'] = xuhao
                 writer.writerow(row)
                 xuhao += 1
+    
+    def use(self, obj_name):
+        '''
+        注入对象
+        '''
+        pass
+    def use_db(self):
+        '''
+        实例化一个数据库对象
+        '''
+        return JournalDb()
+    
+        
