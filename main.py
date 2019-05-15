@@ -104,7 +104,7 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
         # 写入数据库与所对应的csv文件
         if len(full) > 0:
             cnki_log.use_db().insert_into_originallink_multi(full)
-            cnki_log.update_csv(full)
+            # cnki_log.update_csv(full)
 
 
 

@@ -119,3 +119,4 @@ class JournalDb:
         析构函数，对象销毁的时候就断开数据库的链接
         '''
         JournalDb.db.close() 
+
