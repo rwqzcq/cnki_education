@@ -129,12 +129,18 @@ def cnki_subject_with_selenium(subject):
         if len(data) > 0: # 有数据
             cnki_get_paper_detail_throgh_list(data, subject_name)
 
-
-
-if __name__ == "__main__":
-    # 开启个定时任务
+def work():
+    '''
+    入口程序
+    '''
     subject_config = SubjectConfig()
     subject_list = subject_config.get_subjects()
     for subject in subject_list:
         cnki_subject_with_selenium(subject)
+
+
+
+if __name__ == "__main__":
+    # 开启个定时任务
+    work()
     
