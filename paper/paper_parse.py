@@ -45,7 +45,9 @@ class CnkiJournalDetailWithStr:
             keywords = self.soup.select('#catalog_KEYWORD ~ a')
             keyword = ''
             for node in keywords:
-                keyword  = keyword + node.get_text() + " "
+                original_keyword = node.get_text()
+                filter = original_keyword.replace('\n', '').replace(' ', '').replace('\r', '') # 关键词过滤空格
+                keyword  = keyword + filter + " "
             keyword = keyword.rstrip()
             return keyword
         except:
@@ -68,7 +70,8 @@ class CnkiJournalDetailWithStr:
         try:
             date = self.soup.select('div.sourinfo p')[2]
             a = date.select_one('a').get_text()
-            a = a.replace('\r', '').replace('\n', '').replace(' ', '')
+            a = a.replace('\r', '').replace('\n', '').replace(' ', '') # 去除换行符 空格
+            a = a.replace('期', '') # 去除期字
             return a
         except:
             return ''
@@ -94,7 +97,8 @@ class CnkiJournalDetailWithStr:
 
 # 从详情页中解析所需要的数据 单纯的数据 不包括 原文
 def get_pure_detail_from_detail_page(soup, filename):
-    '''从详情页中解析所需要的数据，不包括原文
+    '''
+    从详情页中解析所需要的数据，不包括原文
 
     :param soup: beautifulsoup实例
     :param filename: cnki中某一篇论文的唯一标识符

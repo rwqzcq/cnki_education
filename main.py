@@ -6,6 +6,8 @@ from paper.paper_parse import get_paper_detail_without_content
 from log.log import CnkiLog
 from paper.subject_filter import SubjectFilter, SubjectConfig
 from common.journal_config import get_journal_config
+from paper.paper_oop import get_paper_obj
+from db.journal_db import JournalDb
 
 def cnki_main_with_selenium(dataset_path, log_name, full_name):
     '''
@@ -81,7 +83,8 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
                         continue
             # 日志
             row_log = {"filename" : filename, "online" : 0, "not_online" : 0, "error" : 0}
-            paper = get_paper_detail_without_content(filename)
+            # paper = get_paper_detail_without_content(filename)
+            paper = get_paper_obj(obj_name = 'api').get_paper_detail_without_content(filename) # 通过API的方式查询论文的详情
             if paper == False:
                 row_log['error'] = 1
             else:
@@ -130,6 +133,47 @@ def cnki_subject_with_selenium(subject):
         if len(data) > 0: # 有数据
             cnki_get_paper_detail_throgh_list(data, subject_name)
 
+
+def insert_csv_into_db():
+    '''
+    将csv文件里面的数据放到数据库中
+
+    '''
+    subject_config = SubjectConfig()
+    subject_list = subject_config.get_subjects()
+    for subject in subject_list:   
+        subject_name = subject['name']
+        if subject_name != '学生会治理': # 先过滤掉校园突发事件
+            continue
+        cnki_log = CnkiLog(subject_name, subject_name)
+        current_log = cnki_log.get_log() # 读取日志文件
+        full = cnki_log.get_full_csv() # 获取所有csv文件中的内容
+        log = {}
+        for paper in full:
+            filename = paper['id']
+            if current_log != False:
+                if filename in current_log:
+                    if current_log[filename]['error'] == 0:
+                        print(filename + "--已经爬取并存储")
+                        continue
+            paper['subject'] = subject_name
+            try:
+                r = cnki_log.use_db().insert_into_originallink(paper) # 插入数据
+                row_log = {"filename" : filename, "online" : 1, "not_online" : 0, "error" : 0}
+                if r == False:
+                    row_log['error'] = 1
+                else:
+                    print(filename + "--插入成功")
+                    row_log['error'] = 0
+            finally:
+                log[filename] = row_log
+                if current_log != False:
+                    log = dict(current_log, **log)
+                if log != {}:
+                    cnki_log.write_log(log)
+
+
+
 def work():
     '''
     入口程序
@@ -142,6 +186,11 @@ def work():
 
 
 if __name__ == "__main__":
-    # 开启个定时任务
+    开启个定时任务
     work()
+    # db1 = JournalDb()
+    # db2 = JournalDb()
+    # print(id(db1) == id(db2))
+    # subject = SubjectFilter(subject = '高等教育XX', start_year = '2011', end_year = '2014', retreval_str = '高等教育XX')
+    # data = subject.get()
     

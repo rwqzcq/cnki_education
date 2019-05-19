@@ -103,6 +103,7 @@ class CnkiLog:
         '''
         实例化一个数据库对象
         '''
+
         return JournalDb()
     
         

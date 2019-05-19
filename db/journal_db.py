@@ -16,8 +16,20 @@ def get_db_cursor():
     cursor = db.cursor()
     return cursor
 
+def singleton(cls):
+    '''
+    数据库装饰器
+    https://segmentfault.com/a/1190000016497271#articleHeader3
+    '''
+    _instance = {}
 
+    def inner():
+        if cls not in _instance:
+            _instance[cls] = cls()
+        return _instance[cls]
+    return inner
 
+@singleton
 class JournalDb:
     '''
     数据库操作
@@ -41,34 +53,39 @@ class JournalDb:
 
     def insert_into_originallink(self, paper):
         '''
-        插入到主要的内容表中
+        一条一条插入到主要的内容表中
+
         '''
         sql = '''
             insert into `{0}`
             (
-                `ID`, `TITLE`, `SHORT_DESC`, 
-                `CONTENT`, `SOURCE`, `YEAR_AND_VOLUME_OR_PERIOD`, 
-                `ISSN`, `SEARCH_WORDS_NAME`, `ORIGINAL_URL`
+                `SHORT_DESC`, `TITLE`,  
+                `CONTENT`, `SOURCE`, `RELEASE_DATETIME`, 
+                `ISSN`, `SEARCH_WORDS_NAME`, `ORIGINAL_LINK`,
+                `SUBJECT_TYPE`,`SOURCE_REAL`
             )
             values
             (
+                %s, %s, 
                 %s, %s, %s,
                 %s, %s, %s,
-                %s, %s, %s
+                %s, %s
             )
         '''.format(self.original_link)
         try:
+            subject_md5 = get_journal_config().get('subject_md5')
+            content = self.build_content(paper['keywords'], paper['abstract'])
             bind_param = (
-                paper['id'], paper['title'], paper['abstract'],
-                paper['content'], paper['perio'], paper['juanhao'],
-                paper['issn'], paper['keywords'], paper['original_url']
+                paper['id'], paper['title'], 
+                content, paper['perio'], paper['juanhao'],
+                paper['issn'], paper['subject'], paper['original_url'],
+                subject_md5, '学术期刊'
             )
             JournalDb.cursor.execute(sql, bind_param)
             JournalDb.db.commit()
         except Exception:
             JournalDb.db.rollback()
-            print("插入失败--ID重复!")
-            # traceback.print_exc()
+            traceback.print_exc()
             return False
         return True
 
@@ -79,23 +96,20 @@ class JournalDb:
         :Args:
          - paper_list 一个列表
         '''
-        '''
-        插入到主要的内容表中
-        '''
         sql = '''
             insert into `{0}`
             (
-                `ID`, `TITLE`,  
-                `CONTENT`, `SOURCE`, `YEAR_AND_VOLUME_OR_PERIOD`, 
-                `ISSN`, `SEARCH_WORDS_NAME`, `ORIGINAL_URL`,
-                `SUBJECT_TYPE`
+                `SHORT_DESC`, `TITLE`,  
+                `CONTENT`, `SOURCE`, `RELEASE_DATETIME`, 
+                `ISSN`, `SEARCH_WORDS_NAME`, `ORIGINAL_LINK`,
+                `SUBJECT_TYPE`,`SOURCE_REAL`
             )
             values
             (
                 %s, %s, 
                 %s, %s, %s,
                 %s, %s, %s,
-                %s
+                %s, %s
             )
         '''.format(self.original_link)
         bind_params = []
@@ -106,16 +120,15 @@ class JournalDb:
                 paper['id'], paper['title'], 
                 content, paper['perio'], paper['juanhao'],
                 paper['issn'], paper['subject'], paper['original_url'],
-                subject_md5
+                subject_md5, '学术期刊'
             )
             bind_params.append(bind_param)
         try:
-            rows = JournalDb.cursor.executemany(sql, bind_params)
+            JournalDb.cursor.executemany(sql, bind_params)
             JournalDb.db.commit()
-        except Exception:
+        except:
             JournalDb.db.rollback()
-            print("插入失败--ID重复!")
-            # traceback.print_exc()
+            traceback.print_exc()
             return False
         return True
 
