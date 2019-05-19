@@ -186,7 +186,7 @@ def work():
 
 
 if __name__ == "__main__":
-    开启个定时任务
+    # 开启个定时任务
     work()
     # db1 = JournalDb()
     # db2 = JournalDb()
