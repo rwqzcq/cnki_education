@@ -1,6 +1,9 @@
 from abc import abstractmethod,ABCMeta
 import requests
 from paper.paper_parse import get_paper_detail_without_content
+import traceback
+from bs4 import BeautifulSoup
+from paper.paper_parse import get_pure_detail_from_detail_page,get_paper_detail_without_content
 
 class Paper(metaclass=ABCMeta):
     '''
@@ -23,6 +26,7 @@ class ApiPaper(Paper):
         获取论文详情
         '''
         source_url = '''http://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&filename={0}'''.format(filename)
+        
         try:
             page = requests.get(source_url)
             soup = BeautifulSoup(page.text, 'html.parser')
@@ -32,6 +36,7 @@ class ApiPaper(Paper):
                 return False
             return paper
         except:
+            traceback.print_exc()
             print("打不开论文详情的链接")
             return False
 
