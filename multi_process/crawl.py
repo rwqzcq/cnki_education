@@ -9,7 +9,7 @@ from paper.paper_oop import get_paper_obj
 from db.journal_db import JournalDb
 import time
 
-
+# https://www.cnblogs.com/derek1184405959/p/8449923.html
 class ThreadCrawl(threading.Thread):
     '''
     主题抓取队列
@@ -70,7 +70,7 @@ class ThreadParse(threading.Thread):
             try:
                 filename = self.dataQueue.get(False)
                 
-                paper = get_paper_obj(obj_name = 'api').get_paper_detail_without_content(filename) # 通过API的方式查询论文的详情
+                paper = get_paper_obj(obj_name = 'selenium').get_paper_detail_without_content(filename) # 通过API的方式查询论文的详情
                 if paper != false:
                     # 插入数据库
                     db.insert_into_originallink(paper)
