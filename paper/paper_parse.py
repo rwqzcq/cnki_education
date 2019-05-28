@@ -5,6 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from common.component import get_webdriver
 
 '''
 解析CNKI中某一篇论文的详细信息
@@ -144,7 +145,7 @@ def get_paper_detail_without_content(filename):
     :param filename: cnki中某一篇论文的唯一标识符
     '''
     source_url = '''http://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&filename={0}'''.format(filename)
-    browser = webdriver.Chrome() # mac程序中没有出现
+    browser = get_webdriver() # mac程序中没有出现
     try:
         browser.implicitly_wait(10) # 设置隐式的等待时间 全局的
         browser.get(source_url) # 打开网页

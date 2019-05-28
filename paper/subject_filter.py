@@ -8,6 +8,7 @@ from common.parse import parse_filename
 from common.journal_config import get_journal_config
 import time
 import traceback
+from common.component import get_webdriver
 
 class SubjectFilter:
     '''
@@ -43,7 +44,7 @@ class SubjectFilter:
         '''
         爬取数据
         '''
-        browser = webdriver.Chrome()
+        browser = get_webdriver()
         url = 'http://kns.cnki.net/kns/brief/result.aspx?dbprefix=CJFQ'
         browser.implicitly_wait(10)
         browser.get(url)
@@ -128,7 +129,7 @@ class SubjectFilter:
          - browser 浏览器对象
          - data 要返回的数据
         '''
-
+        time.sleep(1) # 防止出现验证的二维码
         try:
             # 显示等待元素加载完成
             journal_lists = WebDriverWait(browser, 10).until(           

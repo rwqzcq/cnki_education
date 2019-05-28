@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 import time
+from common.component import get_webdriver
 
 def get_latest_issue(journal_id):
     '''
@@ -16,7 +17,7 @@ def get_latest_issue(journal_id):
     '''
     latest = {}
     try:
-        browser = webdriver.Chrome()
+        browser = get_webdriver()
         # step_1 打开网页
         journal = '''http://navi.cnki.net/KNavi/JournalDetail?pcode=CJFD&pykm={0}'''.format(journal_id)
         browser.get(journal)

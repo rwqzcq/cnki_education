@@ -163,7 +163,7 @@ def insert_csv_into_db():
                         continue
             paper['subject'] = subject_name
             try:
-                r = cnki_log.use_db().insert_into_originallink(paper) # 插入数据
+                r = cnki_log.use_db().insert_into_originallink(paper) # 插入数据一条一条插入
                 row_log = {"filename" : filename, "online" : 1, "not_online" : 0, "error" : 0}
                 if r == False:
                     row_log['error'] = 1
@@ -171,6 +171,7 @@ def insert_csv_into_db():
                     print(filename + "--插入成功")
                     row_log['error'] = 0
             finally:
+                # 更新日志
                 log[filename] = row_log
                 if current_log != False:
                     log = dict(current_log, **log)
@@ -239,11 +240,6 @@ def work_use_muli_process():
 
 if __name__ == "__main__":
     # 开启个定时任务
-    # work()
-    work_use_muli_process()
-    # db1 = JournalDb()
-    # db2 = JournalDb()
-    # print(id(db1) == id(db2))
-    # subject = SubjectFilter(subject = '高等教育XX', start_year = '2011', end_year = '2014', retreval_str = '高等教育XX')
-    # data = subject.get()
+    work()
+    # work_use_muli_process()
     
