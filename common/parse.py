@@ -1,7 +1,7 @@
 # 解析函数
 
 from urllib.parse import parse_qs, urlparse
-
+import re
 
 
 def parse_filename(url):
@@ -22,3 +22,28 @@ def parse_filename(url):
     else:
         print("解析fileName出错了!")
         return False
+
+def parse_from_filename(filename):
+    '''
+    从filename中解析出有关的信息
+
+    :Args:
+     - filename: cnki唯一标识
+    
+    :returns:
+     - dict
+    '''
+    journal_name = ''.join(re.split(r'[^A-Za-z].*', filename)) # issue可能会有字母 核心规则为以字母开头然后以数字结束 使用惰性匹配 遇到数字就停止匹配
+
+    filename = filename.replace(journal_name, '')
+
+    year = filename[0:4]
+    issue = filename[4:6]
+    xuhao = filename[6:]
+
+    return {
+        'journal_name' : journal_name,
+        'year' : year,
+        'issue' : issue,
+        'xuhao' : xuhao
+    }

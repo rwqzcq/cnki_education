@@ -139,6 +139,37 @@ class JournalDb:
         keywords = keywords.replace(' ', '').replace("\n", '')
         content = '关键词 ' + keywords + '摘要 ' + abstract # "\n" + 
         return content
+    
+    def get_all_filename_of_one_subject(self, subject_name):
+        '''
+        获取所有的制定类型的期刊ID用来去重
+
+        :Args:
+         - subject_name: 类型名称
+        
+        :Returns:
+         - list
+        '''
+        sql = '''
+            select `SHORT_DESC`
+            from `{0}`
+            where `SEARCH_WORDS_NAME` = %s
+        '''.format(self.original_link)
+        try:
+            JournalDb.cursor.execute(sql, (subject_name))
+            results = JournalDb.cursor.fetchall() # 返回一个tuble
+            if len(results) == 0:
+                return False
+            results = list(results)
+            filename = []
+            for i in results:
+                filename.append(i[0])
+            return filename
+        except:
+            JournalDb.db.rollback()
+            traceback.print_exc()
+            return False
+
     def __del__(self):
         '''
         析构函数，对象销毁的时候就断开数据库的链接

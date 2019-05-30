@@ -12,6 +12,15 @@ from db.journal_db import JournalDb
 from multi_process.subject_queue import get_subject_queue
 from multi_process.crawl import ThreadCrawl, ThreadParse
 from queue import Queue
+# 新日志模块
+from log.year_log import CnkiYearLog
+
+# 解析模块
+from common.parse import parse_from_filename
+
+# 日志转化模块
+
+from log.year_log import all_into_one_year
 
 
 def cnki_main_with_selenium(dataset_path, log_name, full_name):
@@ -238,8 +247,33 @@ def work_use_muli_process():
         thread.join()
         print("2")
 
+
+
 if __name__ == "__main__":
     # 开启个定时任务
-    work()
+    # work()
     # work_use_muli_process()
-    
+    # new_log = CnkiYearLog(log_name = 'test', year = '2018')
+    # log = new_log.get_log()
+    # print(log)
+
+    # 日志数据转换
+    subject_config = SubjectConfig()
+    subject_list = subject_config.get_subjects()
+    for subject in subject_list:
+        all_into_one_year(subject_name = subject['name'])
+    # /日志数据转换
+    # 测试数据库查询
+    # db = JournalDb()
+    # result = db.get_all_filename_of_one_subject(subject_name = '教师队伍建设')
+    # print(result)
+    # /测试数据库查询
+
+    # 测试解析函数
+    # info = parse_from_filename(filename = 'SIXI2015S6005')
+    # print(info)
+    # /测试解析函数
+
+    # 测试日志数据转换
+    # all_into_one_year(subject_name = '校园突发事件')
+    # /测试日志数据转换

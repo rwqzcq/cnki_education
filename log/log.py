@@ -60,7 +60,7 @@ class CnkiLog:
         写入日志文件
         '''
         data = json.dumps(data)
-        with open(self.log_path, 'w') as f:
+        with open(self.log_path, 'w+') as f:
             f.write(data)
     
     def get_full_csv(self):
@@ -94,6 +94,20 @@ class CnkiLog:
                 writer.writerow(row)
                 xuhao += 1
     
+    def update_log(self, new_log):
+        '''
+        更新日志json文件
+        
+        :Args:
+         - new_data: dict
+        '''
+        current_log = self.get_log() # 读取日志文件
+        if current_log != False:
+            log = dict(current_log, **new_log)
+            if log != {}:
+                self.write_log(log)
+        
+
     def use(self, obj_name):
         '''
         注入对象

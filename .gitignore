@@ -1,3 +1,11 @@
 __pycache__
 log/*.json
+log/2018
+log/2019
+log/2017
+log/2016
+log/2015
+log/2014
+log/2013
+log/2012
 dataset/*.csv

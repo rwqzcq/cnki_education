@@ -12,6 +12,10 @@ year: 2019
 issue: 1
 start_year: 2018
 end_year: 2019
+year_range: # 期刊年限的限制
+  - 2019
+  - 2018
+  - 2017
 subject_md5: d1006c45c82548baac58bef6e832f322
 subject_map:
   xytfsj: 校园突发事件
