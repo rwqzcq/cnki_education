@@ -8,10 +8,7 @@ from paper.subject_filter import SubjectFilter, SubjectConfig
 from common.journal_config import get_journal_config
 from paper.paper_oop import get_paper_obj
 from db.journal_db import JournalDb
-# 多线程模块
-from multi_process.subject_queue import get_subject_queue
-from multi_process.crawl import ThreadCrawl, ThreadParse
-from queue import Queue
+
 # 新日志模块
 from log.year_log import CnkiYearLog
 
@@ -19,14 +16,12 @@ from log.year_log import CnkiYearLog
 from common.parse import parse_from_filename
 
 # 日志转化模块
-
-from log.year_log import all_into_one_year
+# from log.year_log import all_into_one_year
 
 
 def cnki_main_with_selenium(dataset_path, log_name, full_name):
     '''
     根据下载的论文列表来获取论文的详细信息
-    
     :Args:
      - dataset_path: csv文件路径
      - log_name: 日志文件名
@@ -124,6 +119,57 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
             cnki_log.use_db().insert_into_originallink_multi(full)
             # cnki_log.update_csv(full)
 
+def cnki_get_paper_detail_throgh_list_use_year_log(data_list, file_name, year):
+    '''
+    通过filename的id列表来采集论文的相关核心信息
+
+    :Args:
+     - data_list: 存放filename的列表
+     - file_name: 存放的csv文件名和文件日志名
+     - year: 年限
+    '''
+    year_log = CnkiYearLog(log_name = file_name, year = year)
+    current_log = year_log.get_log()
+    full = []
+    log = {}
+    count = 1
+    try:
+        for filename in data_list:
+            if current_log != False:
+                if filename in current_log:
+                    if current_log[filename]['error'] == 0:
+                        print(filename + "--已经爬取")
+                        continue
+            # 日志
+            row_log = {"filename" : filename, "online" : 0, "not_online" : 0, "error" : 0}
+            paper = get_paper_obj(obj_name = 'api').get_paper_detail_without_content(filename) # 通过API的方式查询论文的详情
+            if paper == False:
+                row_log['error'] = 1
+            else:
+                paper['xuhao'] = count
+                paper['subject'] = file_name # 增加主题
+                full.append(paper) 
+                count = count + 1
+                if paper['read_url'] != False: 
+                    row_log['online'] = 1
+                else: # 写入没有在线阅读文件 
+                    row_log['not_online'] = 1
+            log[filename] = row_log
+    except:
+        traceback.print_exc()
+    finally:
+        # 更新日志文件
+        if log != {}:
+            year_log.update_log(log)
+        # 写入数据库与所对应的csv文件
+        if len(full) > 0:
+            # 插入之前先做验证
+            db = year_log.use_db()
+            exist_data = db.get_all_filename_of_one_subject(subject_name = file_name)
+            if exist_data != False:
+                # 去除full里面的有的
+                full = [ele for ele in full if ele['id'] not in exist_data]
+            year_log.use_db().insert_into_originallink_multi(full)   
 
 
 def cnki_subject_with_selenium(subject):
@@ -147,121 +193,46 @@ def cnki_subject_with_selenium(subject):
         if len(data) > 0: # 有数据
             cnki_get_paper_detail_throgh_list(data, subject_name)
 
-
-def insert_csv_into_db():
+def cnki_subject_with_selenium_use_one_year(subject, year):
     '''
-    将csv文件里面的数据放到数据库中
+    爬取某一主题下每一年的C刊教育类论文
 
+    :Arags:
+     - subject: 主体对象，包括主体名称以及该主题所包含的关键词
+     - year: 年限
     '''
-    subject_config = SubjectConfig()
-    subject_list = subject_config.get_subjects()
-    for subject in subject_list:   
-        subject_name = subject['name']
-        if subject_name != '学生会治理': # 先过滤掉校园突发事件
-            continue
-        cnki_log = CnkiLog(subject_name, subject_name)
-        current_log = cnki_log.get_log() # 读取日志文件
-        full = cnki_log.get_full_csv() # 获取所有csv文件中的内容
-        log = {}
-        for paper in full:
-            filename = paper['id']
-            if current_log != False:
-                if filename in current_log:
-                    if current_log[filename]['error'] == 0:
-                        print(filename + "--已经爬取并存储")
-                        continue
-            paper['subject'] = subject_name
-            try:
-                r = cnki_log.use_db().insert_into_originallink(paper) # 插入数据一条一条插入
-                row_log = {"filename" : filename, "online" : 1, "not_online" : 0, "error" : 0}
-                if r == False:
-                    row_log['error'] = 1
-                else:
-                    print(filename + "--插入成功")
-                    row_log['error'] = 0
-            finally:
-                # 更新日志
-                log[filename] = row_log
-                if current_log != False:
-                    log = dict(current_log, **log)
-                if log != {}:
-                    cnki_log.write_log(log)
-
-
-
+    subject_name = subject['name']
+    retreval_str = None
+    if subject['retreval_str'] != False:
+        retreval_str = subject['retreval_str']   
+    subject = SubjectFilter(subject_name, start_year = year, end_year = year, retreval_str = retreval_str) # 校园突发事件
+    data = subject.get()
+    if data != False:
+        if len(data) > 0: # 有数据
+            cnki_get_paper_detail_throgh_list_use_year_log(data, subject_name, year)
 def work():
     '''
     入口程序
+    需要获取year的数据
     '''
     subject_config = SubjectConfig()
     subject_list = subject_config.get_subjects()
     for subject in subject_list:
-        cnki_subject_with_selenium(subject)
-
-def work_use_muli_process():
-    '''
-    多线程爬虫
-    '''
-    # 三个采集线程的名字
-    crawlList = ["采集线程1号", "采集线程2号", "采集线程3号"]
-    # 存储三个采集线程的列表集合
-    threadcrawl = []
-    pageQueue = get_subject_queue()
-    dataQueue = Queue()
-
-    for threadName in crawlList:
-        thread = ThreadCrawl(threadName, pageQueue, dataQueue)
-        thread.start()
-        threadcrawl.append(thread)
-
-    # 三个解析线程的名字
-    parseList = ["解析线程1号","解析线程2号","解析线程3号"]
-    # 存储三个解析线程
-    threadparse = []
-    for threadName in parseList:
-        thread = ThreadParse(threadName, dataQueue)
-        thread.start()
-        threadparse.append(thread)
-
-    # 等待pageQueue队列为空，也就是等待之前的操作执行完毕
-    while not pageQueue.empty():
-        pass
-
-    # 如果pageQueue为空，采集线程退出循环
-    global CRAWL_EXIT
-    CRAWL_EXIT = True
-
-    print("pageQueue为空")
-
-    for thread in threadcrawl:
-        thread.join()
-        print("1")
-
-    while not dataQueue.empty():
-        pass
-
-    global PARSE_EXIT
-    PARSE_EXIT = True
-
-    for thread in threadparse:
-        thread.join()
-        print("2")
-
-
+        cnki_subject_with_selenium_use_one_year(subject, year = '2014')
 
 if __name__ == "__main__":
-    # 开启个定时任务
-    # work()
+    # 开启定时任务
+    work()
     # work_use_muli_process()
     # new_log = CnkiYearLog(log_name = 'test', year = '2018')
     # log = new_log.get_log()
     # print(log)
 
     # 日志数据转换
-    subject_config = SubjectConfig()
-    subject_list = subject_config.get_subjects()
-    for subject in subject_list:
-        all_into_one_year(subject_name = subject['name'])
+    # subject_config = SubjectConfig()
+    # subject_list = subject_config.get_subjects()
+    # for subject in subject_list:
+    #     all_into_one_year(subject_name = subject['name'])
     # /日志数据转换
     # 测试数据库查询
     # db = JournalDb()

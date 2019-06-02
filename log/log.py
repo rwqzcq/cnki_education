@@ -101,11 +101,19 @@ class CnkiLog:
         :Args:
          - new_data: dict
         '''
+        if new_log == {}:
+            print("没有新日志数据")
+            return False
         current_log = self.get_log() # 读取日志文件
-        if current_log != False:
-            log = dict(current_log, **new_log)
-            if log != {}:
-                self.write_log(log)
+        if current_log != False: # 当前有日志文件
+            log = dict(current_log, **new_log) # 合并
+        else: # 没有日志文件
+            log = new_log # 新的日志当做总的
+        if log != {}:
+            self.write_log(log)
+            return True
+
+
         
 
     def use(self, obj_name):
