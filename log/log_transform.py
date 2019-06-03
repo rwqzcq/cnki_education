@@ -28,4 +28,5 @@ class LogTransform():
         # 转化日志
         for key, value in new_log.items():
             cnki_year_log = CnkiYearLog(subject_name, key)
-            cnki_year_log.write_log(value)
+            cnki_year_log.update_log(value) # 如果有的话就合并
+        return True

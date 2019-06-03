@@ -217,8 +217,10 @@ def work():
     '''
     subject_config = SubjectConfig()
     subject_list = subject_config.get_subjects()
-    for subject in subject_list:
-        cnki_subject_with_selenium_use_one_year(subject, year = '2014')
+    year_range = get_journal_config().get('year_range')
+    for subject in subject_list: # 循环每一个主题
+        for year in year_range: # 循环每一年
+            cnki_subject_with_selenium_use_one_year(subject, year = year)
 
 if __name__ == "__main__":
     # 开启定时任务

@@ -1,7 +1,7 @@
 from selenium import webdriver
 # from paper.subject_filter import SubjectFilter, SubjectConfig
 from log.log import CnkiLog
-
+from common.journal_config import get_journal_config
 '''
 全局组件文件
 应对不同将代码放到不同的环境的时候由于参数的设置所出现的偏差
@@ -12,10 +12,12 @@ def get_webdriver():
     '''
     获取webdriver
     '''
-    # TO DO 从config.yaml中读取有关的配置作为参数穿进去
-    browser = webdriver.Chrome() # 参数可能需要设置
+    path = get_journal_config().get('chrome_webdriver_path')
+    if path == False:
+        browser = webdriver.Chrome()
+    else:
+        browser = webdriver.Chrome(path)
     return browser
-
 
 # def insert_csv_into_db():
 #     '''

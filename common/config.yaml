@@ -16,6 +16,7 @@ year_range: # 期刊年限的限制
   - 2019
   - 2018
   - 2017
+chrome_webdriver_path: false # 谷歌浏览器驱动路径
 subject_md5: d1006c45c82548baac58bef6e832f322
 subject_map:
   xytfsj: 校园突发事件
