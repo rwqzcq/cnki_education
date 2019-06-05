@@ -11,6 +11,7 @@ from db.journal_db import JournalDb
 
 # 新日志模块
 from log.year_log import CnkiYearLog
+from log.log_daily import DailyLog
 
 # 解析模块
 from common.parse import parse_from_filename
@@ -170,7 +171,15 @@ def cnki_get_paper_detail_throgh_list_use_year_log(data_list, file_name, year):
                 # 去除full里面的有的
                 full = [ele for ele in full if ele['id'] not in exist_data]
             year_log.use_db().insert_into_originallink_multi(full)   
-
+            return {
+                "total" : len(data_list),
+                "updated" : len(full)
+            }
+        else:
+            return {
+                    "total" : len(data_list),
+                    "updated" : 0
+                }    
 
 def cnki_subject_with_selenium(subject):
     '''
@@ -191,7 +200,11 @@ def cnki_subject_with_selenium(subject):
     # 将这个data先存入列表？
     if data != False:
         if len(data) > 0: # 有数据
-            cnki_get_paper_detail_throgh_list(data, subject_name)
+            return cnki_get_paper_detail_throgh_list(data, subject_name)
+        else:
+            return False
+    else:
+        return False
 
 def cnki_subject_with_selenium_use_one_year(subject, year):
     '''
@@ -206,10 +219,15 @@ def cnki_subject_with_selenium_use_one_year(subject, year):
     if subject['retreval_str'] != False:
         retreval_str = subject['retreval_str']   
     subject = SubjectFilter(subject_name, start_year = year, end_year = year, retreval_str = retreval_str) # 校园突发事件
-    data = subject.get()
+    data = subject.get() # 获取到的是每一个主题抓取的条数
     if data != False:
         if len(data) > 0: # 有数据
-            cnki_get_paper_detail_throgh_list_use_year_log(data, subject_name, year)
+            return cnki_get_paper_detail_throgh_list_use_year_log(data, subject_name, year)
+        else:
+            return False
+    else:
+        return False
+
 def work():
     '''
     入口程序
@@ -217,10 +235,17 @@ def work():
     '''
     subject_config = SubjectConfig()
     subject_list = subject_config.get_subjects()
+    daily_log = DailyLog() # 记录每天爬取的总体情况
     year_range = get_journal_config().get('year_range')
     for subject in subject_list: # 循环每一个主题
         for year in year_range: # 循环每一年
-            cnki_subject_with_selenium_use_one_year(subject, year = year)
+            year = str(year) # 注意类型的转化
+            result_obj = cnki_subject_with_selenium_use_one_year(subject, year = year)
+            if result_obj != False:
+                daily_log.add_data(total = result_obj['total'], updated = result_obj['updated'])
+            break
+        break
+    daily_log.update_data() # 写入日志
 
 if __name__ == "__main__":
     # 开启定时任务
