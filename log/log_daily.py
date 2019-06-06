@@ -1,5 +1,6 @@
 import logging
 import os
+import time
 
 class DailyLog:
     '''
@@ -29,23 +30,24 @@ class DailyLog:
         self.total += total
         self.updated += updated
     
-    def update_data(self):
+    def update_data(self, run_time):
         '''
         更新数据
         '''
-        formated_data = '''一共爬取:{0} 更新:{1}'''.format(self.total, self.updated)
+        formated_data = '''一共爬取:{0} 更新:{1} 程序运行{2}分钟'''.format(self.total, self.updated, run_time)
         logging.info(formated_data)        
 
 
-    def format_data(self, total, updated):
+    def format_data(self, total, updated, run_time):
         '''
         组织数据
 
         Args:
          - total 总的数量
          - updated 已经更新的总的数量
+         - run_time 程序运行时间
         '''
-        formated_data = ''' 一共爬取:{0} 更新:{1}'''.format(total, updated)
+        formated_data = '''一共爬取:{0} 更新:{1} 程序运行{2}分钟'''.format(total, updated, run_time)
         logging.info(formated_data)
     
     def get_today(self):

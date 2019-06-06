@@ -8,6 +8,7 @@ from paper.subject_filter import SubjectFilter, SubjectConfig
 from common.journal_config import get_journal_config
 from paper.paper_oop import get_paper_obj
 from db.journal_db import JournalDb
+import math
 
 # 新日志模块
 from log.year_log import CnkiYearLog
@@ -231,19 +232,23 @@ def cnki_subject_with_selenium_use_one_year(subject, year):
 def work():
     '''
     入口程序
-    需要获取year的数据
     '''
+    start = time.time()
     subject_config = SubjectConfig()
     subject_list = subject_config.get_subjects()
     daily_log = DailyLog() # 记录每天爬取的总体情况
     year_range = get_journal_config().get('year_range')
     for subject in subject_list: # 循环每一个主题
         for year in year_range: # 循环每一年
+            time.sleep(2)
             year = str(year) # 注意类型的转化
             result_obj = cnki_subject_with_selenium_use_one_year(subject, year = year)
             if result_obj != False:
                 daily_log.add_data(total = result_obj['total'], updated = result_obj['updated'])
-    daily_log.update_data() # 写入日志
+    end = time.time()
+    run_time = math.ceil((end - start) / 60) # 向上取整
+    daily_log.update_data(run_time) # 写入日志
+
 
 if __name__ == "__main__":
     # 开启定时任务

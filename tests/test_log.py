@@ -26,5 +26,5 @@ class TestLog(unittest.TestCase):
         测试爬取日志
         '''
         daily_log = DailyLog()
-        daily_log.format_data(total = 15, updated = 9)
+        daily_log.format_data(total = 15, updated = 9, run_time = 9)
         
