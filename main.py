@@ -87,7 +87,7 @@ def cnki_get_paper_detail_throgh_list(data_list, file_name):
     try:
         for filename in data_list:
             if current_log != False:
-                if filename in current_log:
+                if filename in current_log: # 查看已经爬取的日志
                     if current_log[filename]['error'] == 0:
                         print(filename + "--已经爬取")
                         continue
@@ -243,8 +243,6 @@ def work():
             result_obj = cnki_subject_with_selenium_use_one_year(subject, year = year)
             if result_obj != False:
                 daily_log.add_data(total = result_obj['total'], updated = result_obj['updated'])
-            break
-        break
     daily_log.update_data() # 写入日志
 
 if __name__ == "__main__":

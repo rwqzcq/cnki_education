@@ -2,16 +2,22 @@ from selenium import webdriver
 # from paper.subject_filter import SubjectFilter, SubjectConfig
 from log.log import CnkiLog
 from common.journal_config import get_journal_config
+from selenium.webdriver.remote.remote_connection import LOGGER
+import logging
+
+
 '''
 全局组件文件
 应对不同将代码放到不同的环境的时候由于参数的设置所出现的偏差
 比如webdriver中的配置选项
 '''
 
+
 def get_webdriver():
     '''
     获取webdriver
     '''
+    LOGGER.setLevel(logging.INFO)  # 关闭日志
     path = get_journal_config().get('chrome_webdriver_path')
     if path == False:
         browser = webdriver.Chrome()
@@ -25,7 +31,7 @@ def get_webdriver():
 #     '''
 #     subject_config = SubjectConfig()
 #     subject_list = subject_config.get_subjects()
-#     for subject in subject_list:   
+#     for subject in subject_list:
 #         subject_name = subject['name']
 #         if subject_name != '学生会治理': # 先过滤掉校园突发事件
 #             continue

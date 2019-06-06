@@ -13,7 +13,7 @@ class DailyLog:
         '''
         self.log_dir = os.path.dirname(__file__) 
         self.log_path = os.path.join(os.path.dirname(__file__), 'daily.log') # 设置日志文件的路径
-        logging.basicConfig(filename = self.log_path, level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%Y-%m-%d') # 配置爬取日志的记录
+        logging.basicConfig(filename = self.log_path, level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%Y-%m-%d') # 配置爬取日志的记录
         self.total = 0 # 总数量为0
         self.updated = 0 # 更新数量为0
     def set_data_format(self):
@@ -34,7 +34,7 @@ class DailyLog:
         更新数据
         '''
         formated_data = '''一共爬取:{0} 更新:{1}'''.format(self.total, self.updated)
-        logging.debug(formated_data)        
+        logging.info(formated_data)        
 
 
     def format_data(self, total, updated):
@@ -46,7 +46,7 @@ class DailyLog:
          - updated 已经更新的总的数量
         '''
         formated_data = ''' 一共爬取:{0} 更新:{1}'''.format(total, updated)
-        logging.debug(formated_data)
+        logging.info(formated_data)
     
     def get_today(self):
         '''
