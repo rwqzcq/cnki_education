@@ -10,3 +10,5 @@ log/2013
 log/2012
 dataset/*.csv
 log/daily.log
+work.bat
+work.sh
