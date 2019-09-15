@@ -251,6 +251,9 @@ def work():
 
 
 if __name__ == "__main__":
+    # from db.journal_db import get_db_cursor
+    # cursor = get_db_cursor()
+    
     # 开启定时任务
     work()
     # work_use_muli_process()

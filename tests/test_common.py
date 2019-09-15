@@ -1,6 +1,7 @@
 import unittest
 from common.journal_config import get_journal_config
 import time
+from db.journal_db import get_db_cursor
 
 class TestCommon(unittest.TestCase):
     '''
@@ -29,4 +30,10 @@ class TestCommon(unittest.TestCase):
         time.sleep(1)
         end = time.time()
         between = end-now
-        
+
+    def test_db_connect(self):
+        '''
+        测试数据库链接
+        '''
+        cursor = get_db_cursor()
+        print(cursor)

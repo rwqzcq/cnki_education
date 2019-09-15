@@ -12,7 +12,7 @@ def get_db_cursor():
     '''
     config = get_journal_config()
     db_config = config.get('db')
-    db = pymysql.connect(db_config['host'],db_config['username'],db_config['password'],db_config['db_name'], charset='utf8')
+    db = pymysql.connect(db_config['host'],db_config['username'],db_config['password'],db_config['db_name'], port = db_config['port'], charset='utf8')
     cursor = db.cursor()
     return cursor
 
@@ -44,7 +44,7 @@ class JournalDb:
         config = get_journal_config()
         db_config = config.get('db')
         try:
-            JournalDb.db = pymysql.connect(db_config['host'],db_config['username'],db_config['password'],db_config['db_name'], charset='utf8') 
+            JournalDb.db = pymysql.connect(db_config['host'],db_config['username'],db_config['password'],db_config['db_name'], port=db_config['port'], charset='utf8') 
             JournalDb.cursor = JournalDb.db.cursor()
         except:
             print("数据库连接失败")
@@ -152,11 +152,12 @@ class JournalDb:
         '''
         sql = '''
             select `SHORT_DESC`
-            from `{0}`
-            where `SEARCH_WORDS_NAME` = %s
-        '''.format(self.original_link)
+            from `{}`
+            where `SEARCH_WORDS_NAME` = '{}'
+        '''.format(self.original_link, subject_name)
         try:
-            JournalDb.cursor.execute(sql, (subject_name))
+            # print(sql)
+            JournalDb.cursor.execute(sql) # , (subject_name)
             results = JournalDb.cursor.fetchall() # 返回一个tuble
             if len(results) == 0:
                 return False
