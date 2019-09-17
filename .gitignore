@@ -11,7 +11,4 @@ log/2012
 dataset/*.csv
 log/daily.log
 work.bat
-work1.bat
-common/config.yaml
-.vscode/settings.json
-.vscode/launch.json
+work.sh
